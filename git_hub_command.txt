@@ -1,0 +1,15 @@
+echo "# ODD" >> README.md --> just comment
+
+git init --> start git
+
+git add README.md --> make a file README for use git
+
+git branch -M main --> make a branch name's main
+
+git remote add origin https://github.com/Tawan67/ODD.git --> link folder to repo from link 
+
+git push -u origin main --> push to origin main (after this command when you want to push ypu can use push without "-u origin")
+
+git commit -m "text" --> make commit
+
+git branch my-branch --> make a branch

@@ -101,7 +101,7 @@ class LinkedList:
             new_head = item.next
             self.head = new_head
             self.size -= 1 
-            return "Success"
+            return item.data
         count = 0
         current = self.head
         while current != None:
@@ -112,7 +112,7 @@ class LinkedList:
                post = current.next.next
                current.next = post
                self.size -= 1
-               return "Success"
+               return item.data
             current = current.next
             count += 1
         return "Out of Range"    
@@ -160,13 +160,132 @@ class LinkedList:
                 current = current.next
                 count +=1
         print("can't insert")
+        
+    def peek(self,index = None,size = None,is_node = None):
+        if index == None:
+            index = 0
+        if size == None:
+            size = self.size_out()
+        index_cur = 0
+        current =self.head
+        for i in range(size):
+            if index_cur == index:
+                if current == None:
+                    return None
+                if is_node == None:
+                    return current.data
+                else:
+                    return current
+            index_cur+=1
+            current = current.next
+        return None
+    def r_shift(self,index):
+        if index ==  0:
+            target = self.head #0 
+            r = target.next # 1
+            r_next = target.next.next # 2, 0,1,2
+            r.next = target # 1 --> 0
+            target.next = r_next # 1-->0-->2
+            self.head = r # head -->1-->0-->2
+        else:
+            for i in range(self.size_out()):
+                current = self.head
+                if index-1 == check:
+                    # print("in2")
+                    # be_fore =f"{link}"
+                    before = current
+                    target = current.next 
+                    after = current.next.next # can't be none , switch with target
+                    # before,target,after,after_next
+                    after_next = after.next
+                    after.next = target
+                    target.next = after_next
+                    before.next = after # before,after,target,after_next
+                    # print(f"L = {link} ,before = {be_fore}")
+                    return 1,index + 1
+                current =current.next
+                check+=1
+            
+            
+
+def find_max(link:LinkedList,size=None):
+    if size == None:
+        size = link.size_out()
+    current  = link.head.data
+    index = 0
+    for i in range(size):
+        if isinstance(link.peek(i,size),str):
+            return "Out of Range"
+        if link.peek(i,size) >= current:
+            current = link.peek(i,size)
+            index = i
+    return current,index
+
+def find_more_than(link:LinkedList,index):
+    if link.peek(index) == None or link.peek(index+1) ==None:
+        return 0
+    return link.peek(index) > link.peek(index+1)
+
+def swapping(link:LinkedList,index):
+    if link.peek(index+1) == None:
+        # print("outto+1111")
+        return 0,index
+    if link.peek(index) > link.peek(index+1):
+        check = 0
+        current = link.head
+        if index == 0:
+            # print("in1")
+            post = link.peek(0,is_node=1) #head
+            pre = post.next #second
+            third = post.next.next #third
+            pre.next = post #2...1
+            post.next = third # 2..1...3 switch 1,2 to 2,1
+            link.head = pre # make 2 to head
+            return 1,index + 1
+        for i in range(link.size_out()):
+            if index-1 == check:
+                # print("in2")
+                be_fore =f"{link}"
+                before = current
+                target = current.next 
+                after = current.next.next # can't be none , switch with target
+                # before,target,after,after_next
+                after_next = after.next
+                after.next = target
+                target.next = after_next
+                before.next = after # before,after,target,after_next
+                # print(f"L = {link} ,before = {be_fore}")
+                return 1,index + 1
+            current =current.next
+            check+=1
+    # print("outto",index,link.peek(index),"   ",link.peek(index) > link.peek(index+1))
+    return 0,index
+    
 
 def main():
     print("*****Bubble Sort Linked List*****")
     input_1 = input("Enter Input: ").split(",")
+    
     L = LinkedList()
     for i in input_1:
         i = int(i)
         L.append(i)
-    print(L)
+    # print(L)
+    print(f"Input List: {L}")
+    print("_______________________________________")
+    for i in range(L.size_out(),0,-1):
+        max,index = find_max(L,i)
+        # print(f"index = {index}, value = {max}")
+        check = 1
+        while check:
+            check,index=swapping(L,index)
+            if check:
+                print(f"\nSwapping {L.peek(index)} and {L.peek(index-1)}")
+                print(f"List: {L}")
+            #     print(index)
+            # else:
+            #     print(index,L.peek(index),"<",index+1,L.peek(index+1))
+    
+    print("_______________________________________")
+    print(f"Sorted List: {L}")           
 main()

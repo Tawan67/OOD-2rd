@@ -206,19 +206,46 @@ class LinkedList:
                     return 1,index + 1
                 current =current.next
                 check+=1
-            
-     
+class Ant:
+    def __init__(self):
+        
+        pass
+class WorkingAnt(Ant):
+    num = 0
+    def __init__(self):
+        WorkingAnt.num+=1
+        self.name = f"W{WorkingAnt.num}" 
+        self.carry = 2
+        self.str = 5 
+        
+    def __str__(self):
+        return self.name
+    
+class ArmyAnt(Ant):
+    num_2 = 0
+    def __init__(self):
+        ArmyAnt.num_2+=1
+        self.name = f"A{ArmyAnt.num_2}"
+        self.carry = 5
+        self.str = 10  
+    def __str__(self):
+        return self.name 
+      
 def main():
     print("***This colony is our home***")
-    ant_in,text = input("Enter input : ").split("/")
+    ant_in,cm = input("Enter input : ").split("/")
     w,a = map(int, ant_in.split())
     ants = LinkedList()
     for i in range(w):
-        s=f"W{i+1}"
-        ants.append(s)
+        ants.append(WorkingAnt())
     for i in range(a):
         s=f"A{i+1}"
-        ants.append(s)
+        ants.append(ArmyAnt())
     print(f"Current Ant List: {ants}")
-    
+    cm = cm.split(",")
+    index = 0
+    for i in cm:
+        cm[index] = i.split(" ")
+        index+=1
+    print(cm)
 main()

@@ -223,34 +223,175 @@ class WorkingAnt(Ant):
         self.str = 5
         WorkingAnt.amount +=1
         
+    @property
+    def use(self):
+        if WorkingAnt.amount > 0:
+            WorkingAnt.amount-=1
+            WorkingAnt.num-=1
+               
     def __str__(self):
         return self.name
     
 class ArmyAnt(Ant):
+    amount = 0
     num_2 = 0
     def __init__(self):
         ArmyAnt.num_2+=1
         self.name = f"A{ArmyAnt.num_2}"
         self.carry = 5
         self.str = 10  
+        ArmyAnt.amount+=1
     def __str__(self):
-        return self.name 
+        return self.name
+    
+    @property
+    def use(self):
+        if ArmyAnt.amount > 0:
+            ArmyAnt.amount-=1
+            ArmyAnt.num_2-=1
+            
       
 def main():
     print("***This colony is our home***")
     ant_in,cm = input("Enter input : ").split("/")
     w,a = map(int, ant_in.split())
     ants = LinkedList()
+    angry = 0
     for i in range(w):
         ants.append(WorkingAnt())
     for i in range(a):
         s=f"A{i+1}"
         ants.append(ArmyAnt())
-    print(f"Current Ant List: {ants}")
+    if ants.size_out()==0:
+        print(f"Current Ant List: Empty\n")
+    else:
+        print(f"Current Ant List: {ants}\n")
     cm = cm.split(",")
     index = 0
     for i in cm:
         cm[index] = i.split(" ")
         index+=1
-    print(cm)
+    pop_list = []
+    # print(cm)
+    for i in cm:
+        sucess = 0
+        if i[0]== 'C': #carry has 2 condition
+            carry_ant = ""
+            val = int(i[1])
+            if ants.size_out() == 0: # empty list
+                carry_ant="Empty"
+            elif val <= WorkingAnt.amount*2: # if ant worker can handle its
+                carry_ant = ""
+                pop_list.clear()
+                for i in range(ants.size_out()):
+                    if isinstance(ants.peek(i),WorkingAnt) and val > 0:
+                        carry_ant+=str(ants.peek(i))+" "
+                        val-=2
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                sucess = 1
+            else:
+                carry_ant = ""
+                pop_list.clear()
+                for i in range(ants.size_out()):
+                    if isinstance(ants.peek(i),WorkingAnt) and val > 0:
+                        carry_ant+=str(ants.peek(i))+" "
+                        val-=2
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                for i in range(ants.size_out()):
+                    if val > 0:
+                        carry_ant+=str(ants.peek(i))+" "
+                        val-=5
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                
+            
+                
+            print(f"Food carrying mission : {carry_ant}")
+            if val > 0:
+                print("The food load is incomplete!")
+                print("Queen is angry! ! !")
+                angry+=1
+        elif i[0]== 'F':
+            actack_ant = ""
+            val = int(i[1])
+            if ants.size_out() == 0: # empty list
+                actack_ant="Empty"
+            elif val <= ArmyAnt.amount*10: # if ant ARMY can handle its
+                actack_ant = ""
+                pop_list.clear()
+                for i in range(ants.size_out()):
+                    if isinstance(ants.peek(i),ArmyAnt) and val > 0:
+                        actack_ant+=str(ants.peek(i))+" "
+                        val-=10
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                sucess = 1
+            else:
+                actack_ant = ""
+                pop_list.clear()
+                for i in range(ants.size_out()):
+                    if isinstance(ants.peek(i),ArmyAnt) and val > 0:
+                        actack_ant+=str(ants.peek(i))+" "
+                        val-=10
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                for i in range(ants.size_out()):
+                    if val > 0:
+                        actack_ant+=str(ants.peek(i))+" "
+                        val-=5
+                        pop_list.append(i)
+                while len(pop_list)> 0:
+                    death_ant = ants.pop(pop_list.pop())
+                    death_ant.use
+                
+            
+                
+            print(f"Attack mission : {actack_ant}")
+            if val > 0:
+                print("Ant nest has fallen!")
+                break
+        
+        elif i[0]=='S':
+            s_w=""
+            s_a=""
+            pop_list.clear()
+            for i in range(ants.size_out()):
+                if isinstance(ants.peek(i),WorkingAnt):
+                    s_w+=str(ants.peek(i))+" "
+                if isinstance(ants.peek(i),ArmyAnt):
+                    s_a+=str(ants.peek(i))+" "
+            if s_w =="":
+                s_w = "Empty"
+            if s_a =="":
+                s_a = "Empty"
+            print(f"""-> Remaining worker ants: {s_w}\n-> Remaining soldier ants: {s_a}""")
+        elif i[0] == 'W':
+            
+            for i in range(int(i[1])):
+                ants.append(WorkingAnt())
+        elif i[0] == 'A':
+            for i in range(int(i[1])):
+                ants.append(ArmyAnt())
+        else:
+            print("Error")
+        if angry == 3:
+            print("**The queen is furious! The ant colony has been destroyed**")
+            break
+            
+                    
+            
+            
+            
 main()

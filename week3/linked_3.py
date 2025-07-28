@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class LinkedList:
     class Node:
         def __init__(self,data,next = None):
@@ -243,3 +244,6 @@ def main():
     print("Reverse")
     print(L)
 main()
+=======
+pass
+>>>>>>> fc63f87 (first recursive for week 4)

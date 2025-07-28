@@ -188,6 +188,7 @@ class LinkedList:
             target.next = r_next # 1-->0-->2
             self.head = r # head -->1-->0-->2
         else:
+            check = 0
             for i in range(self.size_out()):
                 current = self.head
                 if index-1 == check:
@@ -260,17 +261,7 @@ def swapping(link:LinkedList,index):
             check+=1
     # print("outto",index,link.peek(index),"   ",link.peek(index) > link.peek(index+1))
     return 0,index
-    
-
-def main():
-    print("*****Bubble Sort Linked List*****")
-    input_1 = input("Enter Input: ").split(",")
-    
-    L = LinkedList()
-    for i in input_1:
-        i = int(i)
-        L.append(i)
-    # print(L)
+def four_of_five(L:LinkedList):
     print(f"Input List: {L}")
     print("_______________________________________")
     for i in range(L.size_out(),0,-1):
@@ -287,5 +278,59 @@ def main():
             #     print(index,L.peek(index),"<",index+1,L.peek(index+1))
     
     print("_______________________________________")
-    print(f"Sorted List: {L}")           
+    print(f"Sorted List: {L}")               
+
+def main():
+    print("*****Bubble Sort Linked List*****")
+    input_1 = input("Enter Input: ").split(",")
+    
+    L = LinkedList()
+    for i in input_1:
+        i = int(i)
+        L.append(i)
+    print(f"Input List: {L}")
+    print("_______________________________________")
+    # print(L)
+    check = 0
+    new_val = 1
+    index = -1
+    s = L.size_out()-1
+    while check < L.size_out()-1:
+        check = 0
+        
+        for i in range(L.size_out()-1):
+            if not (find_more_than(L,i)):
+                check+=1
+        # print(check)
+        if check == L.size_out()-1:
+            break
+        if new_val:
+            # print("pp")
+            for i in range(L.size_out()-1):
+                if find_more_than(L,i):
+                    index = i
+                    # print(f" index = {index},val = {L.peek(index)},next = {L.peek(index+1)}")
+                    break
+            # print(f" index = {index},val = {L.peek(index)},next = {L.peek(index+1)}")
+            new_val = 0
+        if index >-1:
+            status,index = swapping(L,index)
+            print(f"\nSwapping {L.peek(index)} and {L.peek(index-1)}")
+            print(f"List: {L}")
+            # print(new_val,index)
+        if index == L.size_out()-1 or not find_more_than(L,index):
+            if not find_more_than(L,index):
+                if L.peek(index+1) != None and index+1 < s:
+                    index = index+1
+                else:
+                    s-=1
+                    new_val = 1
+            else:
+                new_val = 1
+                s-=1
+                # print(s)
+        if check == L.size_out()-1:
+            break
+    print("_______________________________________")
+    print(f"Sorted List: {L}")        
 main()

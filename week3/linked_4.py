@@ -210,13 +210,18 @@ class Ant:
     def __init__(self):
         
         pass
+    @property
+    def use(self):
+         pass
 class WorkingAnt(Ant):
     num = 0
+    amount = 0
     def __init__(self):
         WorkingAnt.num+=1
         self.name = f"W{WorkingAnt.num}" 
         self.carry = 2
-        self.str = 5 
+        self.str = 5
+        WorkingAnt.amount +=1
         
     def __str__(self):
         return self.name

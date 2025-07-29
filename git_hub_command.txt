@@ -10,6 +10,24 @@ git remote add origin https://github.com/Tawan67/ODD.git --> link folder to repo
 
 git push -u origin main --> push to origin main (after this command when you want to push ypu can use push without "-u origin")
 
+git pull origin <branch> --> fetch and merge <branch> to <current>
+
 git commit -m "text" --> make commit
 
 git branch my-branch --> make a branch
+
+git fetch origin --> update your local to be same as Github but your local still be same (no file changes)
+
+how to rebase ใช้ก่อนจะเอาไป merge ไม่ควรใช้บน main เพราะ force push มันจะ push ทับแล้วลบ commit ทิ้ง
+git checkout <branch>
+git fetch <remote>
+git rebase <target>  #this is rebase current branch to target
+    if its has config:
+    fix config --> 
+git add <file>
+git rebase --continue
+    if u wanna stop
+git rebase abort
+    if all are finish you have to force push
+git push -f
+

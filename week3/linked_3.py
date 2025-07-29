@@ -242,4 +242,4 @@ def main():
     print()
     print("Reverse")
     print(L)
-main()
+

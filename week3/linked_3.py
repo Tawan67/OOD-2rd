@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 class LinkedList:
     class Node:
         def __init__(self,data,next = None):
@@ -251,6 +252,8 @@ pass
 =======
 pass
 =======
+=======
+>>>>>>> db783a2 (merge 3)
 class LinkedList:
     class Node:
         def __init__(self,data,next = None):
@@ -495,6 +498,10 @@ def main():
     print()
     print("Reverse")
     print(L)
+<<<<<<< HEAD
 main()
 >>>>>>> 34df332 (pass L_3)
 >>>>>>> 42c2ef2 (pass L_3)
+=======
+main()
+>>>>>>> db783a2 (merge 3)

@@ -234,6 +234,7 @@ def main():
     print("Original")
     print(L)
     print("\nProcess")
+    
     for i in range(L.size_out()-1,-1,-1):
         index = 0
         for j in range(i):

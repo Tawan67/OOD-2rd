@@ -189,4 +189,4 @@ equa = input("Input Your Eqution :")
 result = postfix_form(equa)
 print(result)
 print(cal(result))
-print((12.90-12)*10/3+12)
+

@@ -184,11 +184,13 @@ class LinkedList:
             after.next = target
             target.next = after_next
             return 1,index+1
+        
     def reverse(self,range_in=None,index_in=None):
         if index_in == None:
             index_in = 0
         if range_in == None or range_in > self.size_out():
             range_in = self.size_out()
+            
         for i in range(range_in-1,-1,-1):
             index = index_in
             for j in range(i):
@@ -209,6 +211,7 @@ def main():
         print(f"After : {L}")
         return 
     # print(val)
+    
     for i in range(0,L.size_out(),val*2):
         if L.size_out()-i >=val:
             L.reverse(val,i)

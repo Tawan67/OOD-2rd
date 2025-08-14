@@ -38,6 +38,7 @@ class BST:
         return BST.path_sum(self.root,result)
 
     def path_sum(root,result,li = None):
+        
         if li == None:
             li = []
         # print(f"travel = {root.data}")
@@ -65,6 +66,21 @@ class BST:
             return r
         li.pop(-1)
         return False
+    
+    def inOrder(self):
+        return BST._inO(self.root)
+        
+        
+    def _inO(root = None,li = []):
+        if root != None:
+            BST._inO(root.left,li)
+            li.append(root.data)
+            BST._inO(root.right,li)
+            return li
+        else :
+            return
+        
+    
 def sum_li(li:list):
     if len(li)<1:
         return
@@ -80,7 +96,17 @@ def main():
     result = int(inp[1])
     for i in inp_int:
         root = T.insert(i)
-    T.printTree(root)
-    print(T.find_me(result))
-
+    # T.printTree(root)
+    
+    
+    inorder = T.inOrder()
+    # print(inorder)
+    str_p = ""
+    while len(inorder) > 0:
+        str_p+=str(inorder.pop(0))+" " 
+    
+        
+    print(f"Inorder Traversal of BST : {str_p}")
+    boo = T.find_me(result)
+    print(f"Path with sum {result} exists : {boo}")
 main()

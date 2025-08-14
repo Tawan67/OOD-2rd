@@ -1,1 +1,1 @@
-print
+ minimum a+b can be

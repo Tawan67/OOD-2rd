@@ -34,8 +34,8 @@ class BST:
             self.printTree(node.right, level + 1)
             print('     ' * level, node)
             self.printTree(node.left, level + 1)
+            
     def search(self,t,e):
-        
         return BST._preOrder(self.root,t,e)
     def _preOrder(root:Node,t,e,li = None):
         if li == None:

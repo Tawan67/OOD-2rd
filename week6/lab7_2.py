@@ -192,13 +192,14 @@ class AVLTree:
     
 
     def _printTree(node , level=0):
-        if not node is None:
-
+        if node is not None:
+            if node.data == None:
+                return
             AVLTree._printTree(node.right, level + 1)
 
-            print('     ' * level, node.data)
-
+            print('    ' * level + str(node.data))
             AVLTree._printTree(node.left, level + 1)
+        
     def delNode(node,target):
         if node.left == target:
             result = node.left
@@ -208,23 +209,41 @@ class AVLTree:
             result = node.right
             node.right = None
             return result
+    def compareTree(self,anotherTree):
+        return AVLTree._compareTree(self.root,anotherTree.root)
+    def _compareTree(root1,root2):
+        if root1 == None or root2 == None:
+            return root2 == root1
+        if root1.data != root2.data:
+                return 0
+        if AVLTree._compareTree(root1.left,root2.left) == 0:
+            return 0
+        if AVLTree._compareTree(root1.right,root2.right) == 0:
+            return 0
+        return 1
+        
+            
  
 avl1 = AVLTree()
+avl2 = AVLTree()
+inp = input("Enter Tree1/Tree2 : ").split("/")
 
-inp = input('Enter Input : ').split(',')
-
-for i in inp:
-
-    if i[:2] == "AD":
-
-        avl1.add(i[3:])
-
-    elif i[:2] == "PR":
-
-        avl1.printTree()
-
-    elif i[:2] == "PO":
-
-
-        avl1.postOrder()
-
+for i in inp[0].split(" "):
+    try:
+        root1 = avl1.add(int(i))
+    except:
+        root1 = avl1.add(None)
+for i in inp[-1].split(" "):
+    try:
+        root2 = avl2.add(int(i))
+    except:
+        root2 = avl2.add(None)
+print("Tree 1")
+avl1.printTree()
+print("Tree 2")
+avl2.printTree()
+same = avl1.compareTree(avl2)
+if same:
+    print("Same Tree")
+else:
+    print("Different Tree")

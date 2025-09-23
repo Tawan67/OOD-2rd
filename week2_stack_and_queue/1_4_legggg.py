@@ -89,7 +89,7 @@ for i in range(len(num)):
         stack.push(i)
         print(f"Stack push {stack.peek} index of {num[stack.peek]}")
         purpeech = 0
-    while stack.notEm and num[stack.peek] < num[i]: # if input > stack ==pop util input < top of stack
+    while stack.notEm and num[stack.peek] < num[i]: # if input > stack ==pop util input < top of stack // stack less then i
         print(f"input[{i}]({num[i]}) is greater than input[top of stack]({num[stack.peek]})")
         print("Stack pop")
         out[stack.pop_item]=num[i]

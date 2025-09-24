@@ -58,7 +58,7 @@ for i in input("Enter Input : ").split(" "):
     
 index = insertion(index).copy()
 
-# print(not_sort)
+# 
 for i in index:
     for j in range(len(not_sort)):
         if i == not_sort[j][0]:

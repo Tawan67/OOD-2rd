@@ -1,0 +1,1 @@
+print("collision number {} at {}".format(over+1,index))

@@ -46,17 +46,10 @@ def hash(key,table,max_quadratic):
         index = (key_value+pow(quadratic,2))%size
         if table[index] == None:
             return index
-    if table[index] == None:
-            new_data = data
-            table[index] = new_data
     return index
 
-def is_in(table,key):
-    for i in table:
-        if i.key == key:
-            return True
-    return False
 temp_con_details = []
+
 def main():
     print(" ***** Rehashing *****")
     setup,inp = input("Enter Input : ").split("/")
@@ -79,9 +72,9 @@ def main():
             # details = temp_con_details.pop(0)
             details = i[:]
             
-            # text = ("collision number {}".format(details[0]))
-            # text_1 = (" at {}".format(details[1]))
-            # print(text,end=text_1+"\n")
+            text = ("collision number {}".format(details[0]))
+            text_1 = (" at {}".format(details[1]))
+            print(text,end=text_1+"\n")
         
         if index < 0:
             print("****** Max collision - Rehash !!! ******")
